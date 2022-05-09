@@ -6,15 +6,12 @@ Below, you'll find the steps required to create a systemd command that will run 
 ## Step 1
 
 Open a terminal window and create a new file in the folder \
-_/etc/systemd/system/_.\
+`/etc/systemd/system/`\
 File name should be **keychron.service**
 
 ```bash
 sudo nvim /etc/systemd/system/keychron.service
 ```
-
-### Note:
-nvim can be exchanged for any editor of your choice for example [doom emacs](https://github.com/hlissner/doom-emacs).
 
 ## Step 2
 
@@ -22,12 +19,16 @@ Paste the following code into the window:
 
 ```
 [Unit]
-Description=The command to make the Keychron K2-k4 work with Function keys
+Description=The command to make the Keychron K2-K4 work with Function keys
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "sudo echo 1 | sudo tee /sys/module/hid_apple/parameters/fnmode"
-ExecStop=/bin/bash -c "sudo echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode"
+SyslogIdentifier=keychron
+ExecStart=/bin/bash -c "sudo echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode"
+RemainAfterExit=true
+
+Restart=on-failure
+RestartSec=10s
 
 [Install]
 WantedBy=multi-user.target
@@ -39,7 +40,7 @@ To exit nvim press `escape` then `:` then `w` `q` and enter.
 
 In the terminal, in order to enable the service type the following:
 
-```bash
+```shell
 sudo systemctl enable keychron
 ```
 
@@ -47,7 +48,7 @@ sudo systemctl enable keychron
 
 To see the changes right away run last command:
 
-```bash
+```shell
 sudo systemctl start keychron
 ```
 
