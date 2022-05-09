@@ -5,11 +5,10 @@ Below, you'll find the steps required to create a systemd command that will run 
 
 ## Step 1
 
-Open a terminal window and create a new file in the folder \
-`/etc/systemd/system/`\
-File name should be **keychron.service**
+Open a terminal window and create a new file in the folder `/etc/systemd/system/`\
+File should be named **keychron.service**
 
-```bash
+```shell
 sudo nvim /etc/systemd/system/keychron.service
 ```
 
@@ -34,7 +33,7 @@ RestartSec=10s
 WantedBy=multi-user.target
 ```
 
-To exit nvim press `escape` then `:` then `w` `q` and enter.
+To exit nvim press `escape` then `:` then `w` `q` and `enter`.
 
 ## Step 3
 
@@ -55,3 +54,5 @@ sudo systemctl start keychron
 ## Closing Remarks
 
 If you want to simply drag/drop the file that you create manually in the steps provided, I have it under the scripts folder in this repo. Download it and drop it in `/etc/systemd/system/`, doing Step 3 at the end.
+
+For further info about systemd read [freedesktop.org/.../systemd](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
